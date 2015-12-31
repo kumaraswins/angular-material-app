@@ -11,8 +11,8 @@ app.controller('MainController', ['$scope', '$mdBottomSheet', '$mdSidenav', '$md
             icon: 'dashboard'
     },
         {
-            link: 'friends',
-            title: 'Friends',
+            link: 'users',
+            title: 'Users',
             icon: 'group'
     },
         {
@@ -123,7 +123,7 @@ app.config(function ($mdThemingProvider, $routeProvider) {
         templateUrl: "views/dashboard.html"
     }).when('/dashboard', {
         templateUrl: "views/dashboard.html"
-    }).when('/friends', {
+    }).when('/users', {
         templateUrl: "views/friends.html"
     }).when('/message', {
         templateUrl: "views/messsages.html"

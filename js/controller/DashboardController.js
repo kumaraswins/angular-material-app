@@ -18,6 +18,6 @@ app.controller('DashboardController', ['$scope','$http','$location','DataService
     
     $scope.submit = function(){
         DataService.addProduct($scope.user);
-        $location.path("/friends")
+        $location.path("/users")
     }
 }]);
