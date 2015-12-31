@@ -17,3 +17,9 @@ Topics Covered :
 5. Custom service 
 
 6. Passing the data between the controllers.
+
+7. Angular maeterial theming configuration
+
+8. Adding icons to your nav bar
+
+9. Responsive design
