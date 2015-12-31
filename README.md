@@ -6,20 +6,22 @@ This gives a basic overview of how the angular material app works. It is designe
 
 Topics Covered : 
 
-1. Angular Material Design Base App
+1. Angular Material Design Base App.
 
-2. Route Provider concepts
+2. Custom Directives and passing objects to the custom created directive.
 
-3. Form validation and form implementation
+3. Route Provider concepts
 
-4. Getting the data from local json via HTTP service (GET) and populating in the form without server.
+4. Form validation and form implementation
 
-5. Custom service 
+5. Getting the data from local json via HTTP service (GET) and populating in the form without server.
 
-6. Passing the data between the controllers.
+6. Custom service 
 
-7. Angular maeterial theming configuration
+7. Passing the data between the controllers.
 
-8. Adding icons to your nav bar
+8. Angular maeterial theming configuration
 
-9. Responsive design
+9. Adding icons to your nav bar
+
+10. Responsive design
