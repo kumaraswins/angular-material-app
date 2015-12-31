@@ -5,9 +5,15 @@ This gives a basic overview of how the angular material app works. It is designe
 
 
 Topics Covered : 
+
 1. Angular Material Design Base App
+
 2. Route Provider concepts
+
 3. Form validation and form implementation
+
 4. Getting the data from local json via HTTP service (GET) and populating in the form without server.
+
 5. Custom service 
+
 6. Passing the data between the controllers.
