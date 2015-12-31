@@ -40,3 +40,6 @@ md-sidenav ng-md-icon {
 .user-avatar {
   border-radius: 99%;
 }
+.error{
+    color: firebrick;
+}

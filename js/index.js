@@ -144,4 +144,8 @@ app.config(function ($mdThemingProvider, $routeProvider) {
         .accentPalette('pink');
     $mdThemingProvider.theme('input', 'default')
         .primaryPalette('grey')
+    
+     $mdThemingProvider.theme('docs-dark', 'default')
+      .primaryPalette('yellow')
+      .dark();
 });
