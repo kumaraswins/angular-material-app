@@ -1,17 +1,19 @@
-app.service('DataService', function() {
-  var oProduct = {};
-    
-  var addProduct = function(oJson) {
-      oProduct = oJson
-  };
+angular.module('SampleAPP')
+    .service('DataService', [ DataService]);
 
-  var getProducts = function(){
-      return oProduct;
-  };
+function DataService() {
+    var oProduct = {};
 
-  return {
-    addProduct: addProduct,
-    getProducts: getProducts
-  };
+    var addProduct = function (oJson) {
+        oProduct = oJson
+    };
 
-});
+    var getProducts = function () {
+        return oProduct;
+    };
+
+    return {
+        addProduct: addProduct,
+        getProducts: getProducts
+    };
+}

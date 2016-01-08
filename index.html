@@ -3,8 +3,8 @@
     <head>
         <meta charset="UTF-8">
         <title>Angular Material Design Starter App</title>
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="css/angular-material.css">
+        <link rel="stylesheet" href="lib/css/angular-material.css">
+        <link rel="stylesheet" href="css/style.css">        
     </head>
 
     <body layout="row" ng-controller="MainController">
@@ -46,7 +46,7 @@
             </md-list>
         </md-sidenav>
         <div layout="column" class="relative" layout-fill role="main">
-            <md-button class="md-fab md-fab-bottom-right" aria-label="Add" ng-click="showAdd($event)">
+            <md-button class="md-fab md-fab-bottom-right" aria-label="Add" >
                 <ng-md-icon icon="add"></ng-md-icon>
             </md-button>
             <md-toolbar ng-show="!showSearch">
@@ -93,10 +93,10 @@
 
         </div>
         <!-- Angular Material Dependencies -->
-        <script src="js/asserts/angular-1.3.js"></script>
-        <script src="js/asserts/angular-animate-1.3.6.js"></script>
-        <script src="js/asserts/angular-aria-1.3.5.js"></script>
-        <script src="js/asserts/angular-material.js"></script>
+        <script src="lib/js/angular.min.js"></script>
+        <script src="lib/js/angular-animate.min.js"></script>
+        <script src="lib/js/angular-aria.min.js"></script>
+        <script src="lib/js/angular-material.min.js"></script>
         <script src="js/asserts/material-icons.js"></script>
         <script src="js/asserts/angular-route.js"></script>
         <script src="js/index.js"></script>
