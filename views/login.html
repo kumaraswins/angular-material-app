@@ -1,0 +1,21 @@
+<section ng-controller ="LoginController">
+   <div layout="row" layout-align="center center">
+       <h4>Login</h4>
+   </div>
+    <div layout="row" layout-align="center center">       
+        <form name="lf" novalidate>
+            <md-input-container class="md-block">
+                <label>User name</label>
+                <input  required name="username" ng-model="user.name">
+                
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Password</label>
+                <input type="password" required name="password" ng-model="user.password">                
+            </md-input-container>
+            
+             <md-button class="md-raised md-primary" ng-click ="login()" ng-disabled ="lf.$invalid">Submit</md-button>
+             
+        </form>
+    </div>
+</section>

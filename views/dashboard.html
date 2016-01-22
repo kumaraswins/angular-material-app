@@ -1,41 +1,57 @@
-<div ng-controller="DashboardController">
-    <h3>Dashboard</h3>
-    <div layout="row">
-        <div flex="60">
-            <form name="userForm" novalidate>                
-                    <md-input-container class="md-block" flex-gt-sm>
-                        <label>First name</label>
-                        <input ng-model="user.firstName" type="text" name="first" required>                        
-                    </md-input-container>                   
-                    <div ng-show="userForm.$submitted || userForm.first.$touched">
-                      <div class="error" ng-show="userForm.first.$error.required">Enter First name.</div>
-                    </div>
-                    
-                    <md-input-container class="md-block" flex-gt-sm>
-                        <label>Last Name</label>
-                        <input ng-model="user.secondName" type="text" name="second" required>
-                    </md-input-container>
-                    <div ng-show="userForm.$submitted || userForm.second.$touched">
-                      <div class="error" ng-show="userForm.second.$error.required">Enter Second name.</div>
-                    </div>
-                
-                <md-input-container class="md-block" flex-gt-sm>
-                    <label>Email</label>
-                    <input ng-model="user.email" type="email" name="email" required>
-                </md-input-container>
-                <div ng-show="userForm.$submitted || userForm.email.$touched">                      
-                       <div class="error" ng-show="userForm.email.$invalid">Email invalid.</div>
-                    </div>
-                <md-input-container class="md-block" flex-gt-sm>
-                    <label>Mobile</label>
-                    <input ng-model="user.number" type="number" name="number" required>
-                </md-input-container>
-                <div ng-show="userForm.$submitted || userForm.number.$touched">                      
-                       <div class="error" ng-show="userForm.number.$invalid">Email invalid.</div>
-                    </div>
-                
-                 <md-button style ="width:100%;" class="md-raised md-primary" ng-disabled ="userForm.$invalid" ng-click =submit()>Submit</md-button>
-            </form>
-        </div>
-    </div>
+<div ng-controller="DashboardController">   
+     <md-content layout="column" flex="100" >
+      <md-card>
+        
+        <md-toolbar class="md-table-toolbar md-default" ng-hide="options.rowSelection && selected.length">
+          <div class="md-toolbar-tools">
+            <span>Android</span>
+            <div flex></div>
+            <md-button ng-click="loadStuff()">Async Operation</md-button>
+          </div>
+        </md-toolbar>
+        
+        <md-toolbar class="md-table-toolbar alternate" ng-show="options.rowSelection && selected.length">
+          <div class="md-toolbar-tools">
+            <span>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</span>
+          </div>
+        </md-toolbar>
+        
+        <md-table-container>
+          <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
+            <thead md-head md-order="query.order" md-on-reorder="logOrder">
+              <tr md-row>
+                <th md-column md-order-by="name"><span>Dessert (100g serving)</span></th>
+                <th md-column md-order-by="type"><span>Type</span></th>
+
+                <th md-column md-numeric md-order-by="carbs.value"><span>Carbs (g)</span></th>
+                <th md-column md-numeric md-order-by="protein.value"><span>Protein (g)</span></th>
+</th>
+                <th md-column md-order-by="comment">
+                  <span>Comments</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody md-body>
+              <tr md-row md-select="dessert" md-on-select="logItem" md-auto-select="options.autoSelect" ng-disabled="dessert.calories.value > 400" ng-repeat="dessert in desserts.data | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                <td md-cell>{{dessert.name}}</md-cell>
+                <td md-cell>
+                  <md-select ng-model="dessert.type" placeholder="Other">
+                    <md-option ng-value="type" ng-repeat="type in getTypes()">{{type}}</md-option>
+                  </md-select>
+                </md-cell>
+
+                <td md-cell>{{dessert.carbs.value}}</td>
+                <td md-cell>{{dessert.protein.value | number: 2}}</td>
+
+                <td md-cell ng-click="editComment($event, dessert)" ng-class="{'md-placeholder': !dessert.comment}">
+                  {{dessert.comment || 'Add a comment'}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+
+        <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{desserts.count}}" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks" md-on-paginate="logPagination"></md-table-pagination>
+      </md-card>
+    </md-content>
 </div>

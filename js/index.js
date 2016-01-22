@@ -1,18 +1,48 @@
 angular
-    .module('SampleAPP', ['ngAnimate', 'ngMaterial', 'ngMdIcons', 'ngRoute'])
-    .config(function ($mdThemingProvider, $routeProvider, $mdIconProvider) {
-        $routeProvider
-            .when('/', {
-                templateUrl: "views/dashboard.html"
-            }).when('/dashboard', {
-                templateUrl: "views/dashboard.html"
-            }).when('/users', {
-                templateUrl: "views/friends.html"
-            }).when('/message', {
-                templateUrl: "views/messsages.html"
-            }).when('/delete', {
-                templateUrl: "views/trash.html"
-            });
+    .module('SampleAPP', ['ngAnimate', 'ngMaterial', 'ngMdIcons', 'ui.router','md.data.table'])
+    .config(function ($mdThemingProvider, $mdIconProvider, $stateProvider, $urlRouterProvider) {
+
+        $urlRouterProvider.otherwise("/login");
+    
+        $stateProvider
+        .state('login', {
+                url: '/login',
+               views: {                    
+                    content: {
+                        templateUrl: 'views/login.html'
+                    }
+                }
+            })
+            .state('dashboard', {
+                url: '/dashboard',
+                views: {
+                    nav: {
+                        templateUrl: 'navbar.html'
+                    },
+                    content: {
+                        templateUrl: 'views/dashboard.html'
+                    }
+                }
+            })
+            .state('about', {
+                url: '/about',
+                views: {
+                    nav: {
+                        templateUrl: 'navbar.html'
+                    },
+                    content: {
+                        templateUrl: 'about.html'
+                    }
+                }
+            }).state('landingpage', {
+                url: '/landingpage',
+                views: {
+                    content: {
+                        templateUrl: 'landingpage.html'
+                    }
+                }
+            });        
+
         $mdIconProvider
             .defaultIconSet("./lib/svg/avatars.svg", 128)
             .icon("menu", "./lib/svg/menu.svg", 24)
@@ -21,73 +51,48 @@ angular
             .icon("hangouts", "./lib/svg/hangouts.svg", 512)
             .icon("twitter", "./lib/svg/twitter.svg", 512)
             .icon("phone", "./lib/svg/phone.svg", 512);
-        var customBlueMap = $mdThemingProvider.extendPalette('light-blue', {
-            'contrastDefaultColor': 'light',
-            'contrastDarkColors': ['50'],
-            '50': 'ffffff'
-        });
-        $mdThemingProvider.definePalette('customBlue', customBlueMap);
-        $mdThemingProvider.theme('default')
-            .primaryPalette('purple', {
-                'default': '500',
-                'hue-1': '50'
-            })
-            .accentPalette('pink');
-        $mdThemingProvider.theme('input', 'default')
-            .primaryPalette('grey')
-
-        $mdThemingProvider.theme('docs-dark', 'default')
-            .primaryPalette('yellow')
-            .dark();
+        $mdThemingProvider.theme('blue')
     });
 
 
 angular
     .module('SampleAPP')
     .controller('MainController', [
-          '$scope', '$mdBottomSheet', '$mdSidenav', '$mdDialog', '$location',
+          '$scope', '$rootScope', '$mdBottomSheet', '$mdSidenav', '$mdDialog', '$location', 'NavService',
           MainController
        ]);
 
-function MainController($scope, $mdBottomSheet, $mdSidenav, $mdDialog, $location) {
+function MainController($scope, $rootScope, $mdBottomSheet, $mdSidenav, $mdDialog, $location, NavService) {
     $scope.toggleSidenav = function (menuId) {
         $mdSidenav(menuId).toggle();
     };
-    $scope.menu = [
-        {
-            link: 'dashboard',
-            title: 'Dashboard',
-            icon: 'dashboard'
-    },
-        {
-            link: 'users',
-            title: 'Users',
-            icon: 'group'
-    },
-        {
-            link: 'message',
-            title: 'Messages',
-            icon: 'message'
-    }
-  ];
-    $scope.admin = [
-        {
-            link: 'delete',
-            title: 'Trash',
-            icon: 'delete'
-    },
-        {
-            link: 'settings',
-            title: 'Settings',
-            icon: 'settings'
-    }
-  ];
-    $scope.navigate = function (url) {
-        if (url == "settings") {
-            //$scope.showListBottomSheet();
-            return;
+
+    $scope.sideMenu = NavService.getNavList();
+    /**
+     * Click function for the parent navigation click
+     * @param {number} index gets the index of the current object click
+     * @param {object}   oMenu gets the complete object for the clicked element
+     */
+    $scope.navClick = function (index, oMenu) {
+            for (var i = 0; i < $scope.sideMenu.length; i++) {
+                $scope.sideMenu[i].show = false;
+                for (var j = 0; j < $scope.sideMenu[i].subMenu.length; j++) {
+                    $scope.sideMenu[i].subMenu[j].show = false;
+                }
+            }
+            oMenu.show = true;
         }
-        $location.path("/" + url)
+        /**
+         * Click function for the child nav elements
+         * @param {number} index gets the current index
+         * @param {object}   oSub  sub menu object
+         * @param {object}   oMenu parent menu object
+         */
+    $scope.subNavClick = function (index, oSub, oMenu) {
+        for (var i = 0; i < oMenu.subMenu.length; i++) {
+            oMenu.subMenu[i].show = false;
+        }
+        oSub.show = true;
     }
-    $scope.alert = '';
+
 }
